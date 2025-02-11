@@ -16,7 +16,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="300dp"
             android:text="@string/start_task"/>
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/status"/>
 
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hidden_text"/>
     </LinearLayout>
 </ScrollView>
