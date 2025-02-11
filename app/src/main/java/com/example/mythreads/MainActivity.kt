@@ -9,6 +9,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withCreated
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.logging.Handler
@@ -26,7 +32,8 @@ class MainActivity : AppCompatActivity() {
         val handler = android.os.Handler(Looper.getMainLooper())
 
         btnStart.setOnClickListener{
-            executor.execute{
+            //menggunakan thread, handler, dan executor
+            /*executor.execute{
                 try{
                     //simulasi proses compress
                     for(i in 0..10){
@@ -43,6 +50,22 @@ class MainActivity : AppCompatActivity() {
                     }
                 }catch (e: InterruptedException){
                     e.printStackTrace()
+                }
+                }
+                */
+            //menggunakan coroutine
+            lifecycleScope.launch(Dispatchers.Default) {
+                for (i in 0..10) {
+                    delay(500)
+                    val percentage = i * 10
+                    withContext(Dispatchers.Main) {
+                        if (percentage == 100) {
+                            tvStatus.setText(R.string.tesk_completed)
+                        } else {
+                            tvStatus.text =
+                                String.format(getString(R.string.compressing), percentage)
+                        }
+                    }
                 }
             }
         }
