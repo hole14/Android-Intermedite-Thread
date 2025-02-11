@@ -1,5 +1,6 @@
 package com.example.mythreads
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -9,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
+    @SuppressLint("StringFormatInvalid")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -18,7 +20,16 @@ class MainActivity : AppCompatActivity() {
 
         btnStart.setOnClickListener{
             try{
-
+                //simulasi proses compress
+                for(i in 0..10){
+                    Thread.sleep(500)
+                    val percentage = i * 10
+                    if(percentage == 100){
+                        tvStatus.setText(R.string.tesk_completed)
+                    }else{
+                        tvStatus.text = String.format(getString(R.string.compressing), percentage)
+                    }
+                }
             }catch (e: InterruptedException){
                 e.printStackTrace()
             }
